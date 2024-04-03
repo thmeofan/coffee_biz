@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1070122466411",
+    "project_id": "coffee-biz",
+    "storage_bucket": "coffee-biz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070122466411:android:398ca8bfac9680e807c52e",
+        "android_client_info": {
+          "package_name": "com.cofexqio.utility.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANJVX58UoyLwE9mDzDtxAbKAKhZ9ybMLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

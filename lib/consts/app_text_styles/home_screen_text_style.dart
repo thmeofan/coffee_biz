@@ -45,11 +45,6 @@ class HomeScreenTextStyle {
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
       color: Colors.black);
-  static const TextStyle typeBad = TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: 18.0,
-      fontWeight: FontWeight.w400,
-      color: AppColors.redColor);
   static const TextStyle goods = TextStyle(
       fontFamily: 'Roboto',
       fontSize: 14.0,

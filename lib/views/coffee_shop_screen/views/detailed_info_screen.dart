@@ -76,7 +76,7 @@ class _DetailedInfoScreenState extends State<DetailedInfoScreen> {
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.07),
+                                horizontal: size.width * 0.05),
                             child: const Text(
                               'Coffee shop info',
                               style: TextStyle(

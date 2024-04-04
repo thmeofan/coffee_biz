@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/coffee_shop_cubit/coffee_shop_cubit.dart';
-
-import 'consts/app_colors.dart';
 import 'data/repository/onboarding_repository.dart';
 import 'firebase_options.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -32,11 +30,8 @@ Future<void> main() async {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: Container(
-                color: AppColors.brownColor,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              body: Center(
+                child: CircularProgressIndicator(),
               ),
             ),
           );

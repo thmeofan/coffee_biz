@@ -1,6 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../data/model/coffee_shop.dart';
 import '../../data/model/coffee_shop.dart';
 import '../../util/shared_pref_service.dart';
 
@@ -12,14 +10,12 @@ class CoffeeShopCubit extends Cubit<List<CoffeeShop>> {
   }
 
   void _loadCoffeeShops() async {
-    final CoffeeShops =
-        await _sharedPreferencesService.getCoffeeShops();
-    emit(CoffeeShops);
+    final coffeeShops = await _sharedPreferencesService.getCoffeeShops();
+    emit(coffeeShops);
   }
 
   void addCoffeeShop(CoffeeShop coffeeShop) async {
-    final List<CoffeeShop> updatedList = List.from(state)
-      ..add(coffeeShop);
+    final List<CoffeeShop> updatedList = List.from(state)..add(coffeeShop);
     emit(updatedList);
     await _sharedPreferencesService.saveCoffeeShops(updatedList);
   }
@@ -28,5 +24,4 @@ class CoffeeShopCubit extends Cubit<List<CoffeeShop>> {
     emit(updatedList);
     await _sharedPreferencesService.saveCoffeeShops(updatedList);
   }
-
 }

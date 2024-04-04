@@ -126,7 +126,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'How often will you replenish merchandise?',
+                    'How often will you replenish \nmerchandise?',
+                    textAlign: TextAlign.start,
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
                   ),
                 ],
               ),

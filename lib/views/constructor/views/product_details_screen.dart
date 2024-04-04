@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../blocs/vending_machine_cubit/vending_machine_cubit.dart';
+import '../../../blocs/coffee_shop_cubit/coffee_shop_cubit.dart';
 import '../../../consts/app_colors.dart';
 import '../../../consts/app_text_styles/constructor_text_style.dart';
+import '../../../consts/app_text_styles/settings_text_style.dart';
 import '../../../data/model/coffee_shop.dart';
 import '../../app/views/home_screen.dart';
 import '../../app/widgets/chosen_action_button_widget.dart';
@@ -78,41 +78,47 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        //   backgroundColor: AppColors.purpleColor,
+        elevation: 0,
+        titleSpacing: -5,
         title: const Text(
           'Back',
-          style: ConstructorTextStyle.appBar,
+          style: SettingsTextStyle.back,
         ),
-        titleSpacing: -5,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           },
-          icon: SvgPicture.asset('assets/icons/leading.svg'),
+          icon: SvgPicture.asset(
+            'assets/icons/leading.svg',
+            width: size.width * 0.04,
+            height: size.width * 0.04,
+          ),
         ),
       ),
       body: Container(
-        //  color: AppColors.purpleColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               InputWidget(
                 controller: _nameController,
+                labelText: 'Name',
               ),
               const SizedBox(height: 16.0),
               InputWidget(
                 controller: _priceController,
-                //  labelText: 'Price',
                 keyboardType: TextInputType.number,
+                labelText: 'Price per piece',
               ),
               const SizedBox(height: 16.0),
               InputWidget(
                 controller: _consumptionController,
-                //  labelText: 'Consumption',
+                labelText: 'Quantity',
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16.0),
@@ -120,8 +126,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Consumption Period:',
-                    // style: ConstructorTextStyle.title,
+                    'How often will you replenish merchandise?',
                   ),
                 ],
               ),
@@ -161,7 +166,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => HomeScreen(),
+                        builder: (_) => const HomeScreen(),
                       ),
                     );
                   }
@@ -191,8 +196,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: Container(
             decoration: BoxDecoration(
               color: isSelected
-                  ? AppColors.greenColor
-                  : Colors.white.withOpacity(0.15),
+                  ? AppColors.yellowColor
+                  : AppColors.darkGreyColor.withOpacity(0.06),
               borderRadius: BorderRadius.circular(8.0),
             ),
             padding: EdgeInsets.all(4.0),
@@ -205,7 +210,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Text(
                       consumptionPeriod.name.toUpperCase(),
                       style: TextStyle(
-                        color: isSelected ? Colors.white : Colors.white,
+                        color: isSelected
+                            ? AppColors.darkGreyColor
+                            : AppColors.darkGreyColor.withOpacity(0.4),
                         fontWeight: FontWeight.w400,
                       ),
                     ),

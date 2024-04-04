@@ -1,5 +1,6 @@
+import 'package:coffee_biz/consts/app_text_styles/settings_text_style.dart';
 import 'package:flutter/material.dart';
-import '../../../consts/app_colors.dart';
+
 import '../../../data/model/news_model.dart';
 import '../widgets/news_widget.dart';
 
@@ -14,11 +15,9 @@ class NewsScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          //    backgroundColor: AppColors.blackColor,
+          automaticallyImplyLeading: false,
         ),
         body: Container(
-          //   color: AppColors.blackColor,
           child: Column(children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: size.height * 0.018),
@@ -27,7 +26,7 @@ class NewsScreen extends StatelessWidget {
                 children: [
                   Text(
                     'News',
-                    //    style: SynopsisTextStyle.screenTitle,
+                    style: SettingsTextStyle.title,
                   ),
                 ],
               ),

@@ -19,23 +19,23 @@ class ConstructorTextStyle {
       fontFamily: 'Roboto',
       fontSize: 16.0,
       fontWeight: FontWeight.w300,
-      color: Colors.white);
+      color: AppColors.darkGreyColor);
   static const TextStyle appBar = TextStyle(
       fontFamily: 'Roboto',
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       color: AppColors.greenColor);
 
-  static const TextStyle lable = TextStyle(
+  static TextStyle lable = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 16.0,
-    fontWeight: FontWeight.w400,
-    color: Colors.grey,
+    fontWeight: FontWeight.w500,
+    color: AppColors.darkGreyColor.withOpacity(0.4),
   );
   static TextStyle snackBar = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 14.0,
     fontWeight: FontWeight.w400,
-    color: AppColors.peachColor,
+    color: AppColors.yellowColor,
   );
 }

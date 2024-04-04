@@ -30,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
+            image: AssetImage('assets/images/onboarding.png'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.transparent.withOpacity(1),
@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: size.height * 0.45,
                     ),
                     const Text(
-                      'Welcome to Profitmate - your assistant in increasing the profitability of vending machines!',
+                      'Welcome to our app “CoffeeBiz”!',
                       style: OnboardingTextStyle.introduction,
                       textAlign: TextAlign.start,
                       softWrap: true,
@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: size.height * 0.02,
                     ),
                     Text(
-                      'Track, analyze, and optimize your business with our convenient app',
+                      'Explore the best business practices in the coffee industry and move towards success with us. ',
                       style: OnboardingTextStyle.description,
                       textAlign: TextAlign.start,
                       softWrap: true,
@@ -73,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         context.read<OnboardingCubit>().setFirstTime();
                         Navigator.pushReplacementNamed(context, AppRoutes.home);
                       },
-                      text: 'Next',
+                      text: 'Get started',
                     ),
                     SizedBox(
                       height: size.height * 0.035,

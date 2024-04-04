@@ -2,10 +2,9 @@ import 'package:coffee_biz/views/constructor/views/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../blocs/vending_machine_cubit/vending_machine_cubit.dart';
-import '../../../consts/app_colors.dart';
+import '../../../blocs/coffee_shop_cubit/coffee_shop_cubit.dart';
 import '../../../consts/app_text_styles/constructor_text_style.dart';
+import '../../../consts/app_text_styles/settings_text_style.dart';
 import '../../../data/model/coffee_shop.dart';
 import '../../app/widgets/chosen_action_button_widget.dart';
 import '../../app/widgets/input_widget.dart';
@@ -40,20 +39,27 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        //  backgroundColor: AppColors.purpleColor,
+        elevation: 0,
+        titleSpacing: -5,
         title: const Text(
           'Back',
-          style: ConstructorTextStyle.appBar,
+          style: SettingsTextStyle.back,
         ),
-        titleSpacing: -5,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
           },
-          icon: SvgPicture.asset('assets/icons/leading.svg'),
+          icon: SvgPicture.asset(
+            'assets/icons/leading.svg',
+            width: size.width * 0.04,
+            height: size.width * 0.04,
+            // color: Colors.white,
+          ),
         ),
       ),
       body: Container(
@@ -64,12 +70,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
             children: [
               InputWidget(
                 controller: _nameController,
-                //  labelText: 'Name',
+                  labelText: 'Title',
               ),
               const SizedBox(height: 16.0),
               InputWidget(
                 controller: _locationController,
-                //  labelText: 'Location',
+                  labelText: 'Description',
               ),
               Spacer(),
               ChosenActionButton(

@@ -1,7 +1,7 @@
+import 'package:coffee_biz/consts/app_text_styles/settings_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../consts/app_colors.dart';
 
 class SettingsTile extends StatelessWidget {
   final String assetName;
@@ -19,29 +19,34 @@ class SettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              assetName,
-              width: 24.0,
-              height: 24.0,
-             // color: AppColors.purpleColor,
-            ),
-            SizedBox(width: 16.0),
-            Text(
-              text,
-             // style: SynopsisTextStyle.tile,
-            ),
-            if (action != null) ...[
-              Spacer(),
-              action!,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                assetName,
+                width: 24.0,
+                height: 24.0,
+              ),
+              SizedBox(width: 8.0),
+              Text(
+                text,
+                style: SettingsTextStyle.tile,
+              ),
+              if (action != null) ...[
+                Spacer(),
+                action!,
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

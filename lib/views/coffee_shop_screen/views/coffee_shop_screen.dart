@@ -1,12 +1,12 @@
+import 'package:coffee_biz/views/coffee_shop_screen/views/detailed_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../blocs/vending_machine_cubit/vending_machine_cubit.dart';
+import '../../../blocs/coffee_shop_cubit/coffee_shop_cubit.dart';
 import '../../../consts/app_colors.dart';
 import '../../../consts/app_text_styles/home_screen_text_style.dart';
 import '../../../data/model/coffee_shop.dart';
-import '../../../util/app_routes.dart';
 import '../../app/widgets/chosen_action_button_widget.dart';
 import '../../constructor/views/basic_info_screen.dart';
 import '../widgets/banner_widget.dart';
@@ -19,36 +19,24 @@ class CoffeeShopScreen extends StatefulWidget {
 }
 
 class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
-  bool _showMachines = true;
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-        //  backgroundColor: AppColors.purpleColor,
-          leadingWidth: size.width * 0.3,
-          leading: TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.profile,
-              );
-            },
-            child: const Text(
-              'Settings',
-              style: HomeScreenTextStyle.appbar,
-            ),
-          ),
+          backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
         ),
         body: Container(
-         // color: AppColors.purpleColor,
           child: BlocBuilder<CoffeeShopCubit, List<CoffeeShop>>(
-            builder: (context, CoffeeShopsList) {
-              if (CoffeeShopsList.isEmpty) {
+            builder: (context, coffeeShopsList) {
+              if (coffeeShopsList.isEmpty) {
                 return Center(
                   child: Column(
                     children: [
-                      const MachineBanner(),
+                      const IncomeBanner(
+                        coffeeShops: [],
+                      ),
                       SizedBox(height: size.height * 0.08),
                       Expanded(
                         child: Container(
@@ -59,27 +47,39 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
                                 topRight: Radius.circular(15),
                               ),
                             ),
-                            child: Column(children: [
-                              SizedBox(height: size.height * 0.1),
-                              const Text(
-                                'No vending machine data available.',
-                                style: HomeScreenTextStyle.banner,
-                                textAlign: TextAlign.center,
-                              ),
-                              const Spacer(),
-                              ChosenActionButton(
-                                text: 'Add Machines',
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) =>
-                                            const BasicInfoScreen()),
-                                  );
-                                },
-                              ),
-                              SizedBox(height: size.height * 0.03),
-                            ])),
+                            child: Padding(
+                              padding: EdgeInsets.all(size.height * 0.012),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: size.height * 0.01),
+                                    Text(
+                                      'Your Coffee shop',
+                                      style: HomeScreenTextStyle.title,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(height: size.height * 0.015),
+                                    Text(
+                                      'You do not have a coffee shop added, to add a coffee shop tap Add Coffee shop button.',
+                                      style: HomeScreenTextStyle.bannerTitle,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    const Spacer(),
+                                    ChosenActionButton(
+                                      svgAssetPath: 'assets/icons/plus.svg',
+                                      text: 'Add Coffee shop',
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  const BasicInfoScreen()),
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(height: size.height * 0.03),
+                                  ]),
+                            )),
                       )
                     ],
                   ),
@@ -88,11 +88,10 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
 
               return Column(
                 children: [
-                  const MachineBanner(),
+                  IncomeBanner(coffeeShops: coffeeShopsList),
                   SizedBox(height: size.height * 0.03),
                   Expanded(
                     child: Container(
-                      // height: size.height * 0.65,
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.1),
                         borderRadius: const BorderRadius.only(
@@ -100,55 +99,33 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
                           topRight: Radius.circular(15),
                         ),
                       ),
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ToggleButtons(
-                            borderRadius: BorderRadius.circular(10.0),
-                            selectedColor: Colors.white,
-                            color: Colors.white.withOpacity(0.15),
-                            fillColor: AppColors.greenColor,
-                            onPressed: (int newIndex) {
-                              setState(() {
-                                _showMachines = newIndex == 0;
-                              });
-                            },
-                            isSelected: [_showMachines, !_showMachines],
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.12),
-                                child: const Text('Machines',)
-                                  //  style: HomeScreenTextStyle.products),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Your Coffee shop',
+                                style: HomeScreenTextStyle.title,
+                                textAlign: TextAlign.center,
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.12),
-                                child: const Text('Products',)
-                                   // style: HomeScreenTextStyle.products),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16.0),
-                        Expanded(
-                            child: _showMachines
-                                ? _buildMachinesList(
-                                    context, CoffeeShopsList)
-                                : _buildProductsList(
-                                    context, CoffeeShopsList)),
-                        ChosenActionButton(
-                          text: 'Add Machines',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const BasicInfoScreen()),
-                            );
-                          },
-                        ),
-                        SizedBox(height: size.height * 0.03),
-                      ]),
+                            ),
+                            Expanded(
+                              child:
+                                  _buildMachinesList(context, coffeeShopsList),
+                            ),
+                            ChosenActionButton(
+                              text: 'Add Coffee shop',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const BasicInfoScreen()),
+                                );
+                              },
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                          ]),
                     ),
                   )
                 ],
@@ -159,27 +136,29 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
   }
 
   Widget _buildMachinesList(
-      BuildContext context, List<CoffeeShop> machines) {
+      BuildContext context, List<CoffeeShop> coffeeShops) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
-        itemCount: machines.length,
+        itemCount: coffeeShops.length,
         itemBuilder: (context, index) {
-          final machine = machines[index];
+          final machine = coffeeShops[index];
           return GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => MachineDetailsScreen(
-              //       CoffeeShop: machine,
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DetailedInfoScreen(coffeeShop: machine),
+                ),
+              );
             },
-            child: Card(
-              color: Colors.white.withOpacity(0.15),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: AppColors.darkGreyColor.withOpacity(0.06),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -196,52 +175,74 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
                           ),
                         ),
                         SizedBox(width: size.width * 0.03),
-                        // ...machine.machineTypes.map((type) {
-                        //   return Container(
-                        //     margin: EdgeInsets.only(right: 8),
-                        //     padding: EdgeInsets.all(8),
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       color: AppColors.greenColor.withOpacity(0.25),
-                        //     ),
-                        //     child: Text(
-                        //       type.toString().split('.').last,
-                        //       style: HomeScreenTextStyle.type,
-                        //     ),
-                        //   );
-                      //  }).toList(),
                       ],
                     ),
                     Text(
                       machine.description,
-                      style: HomeScreenTextStyle.location,
+                      style: HomeScreenTextStyle.description,
                     ),
                     SizedBox(height: size.width * 0.02),
-                    const Text(
-                      'Products:',
-                     // style: HomeScreenTextStyle.products,
+                    Container(
+                      height: size.height * 0.06,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Income',
+                              style: HomeScreenTextStyle.description,
+                            ),
+                            Spacer(),
+                            Text(
+                              '${machine.calculateIncome().toStringAsFixed(2)}',
+                              style: HomeScreenTextStyle.descriptionAmount,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: size.width * 0.02),
+                    Text(
+                      'Goods:',
+                      style: HomeScreenTextStyle.description,
                     ),
                     SizedBox(height: size.width * 0.015),
                     Container(
-                      height: size.height * 0.05,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: machine.products.map((product) {
-                          return Container(
-                            margin: EdgeInsets.only(right: 12),
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.orange.withOpacity(0.25),
-                            ),
-                            child: Center(
-                              child: Text(
-                                product.name,
-                                style: HomeScreenTextStyle.restock,
-                              ),
-                            ),
-                          );
-                        }).toList(),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      height: size.height * 0.08,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: size.height * 0.015, horizontal: 5),
+                        child: Center(
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: machine.products.map((product) {
+                              return Container(
+                                margin: EdgeInsets.only(right: 12),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColors.darkGreyColor,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Center(
+                                    child: Text(
+                                      product.name,
+                                      style: HomeScreenTextStyle.goods,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -251,95 +252,6 @@ class _CoffeeShopScreenState extends State<CoffeeShopScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget _buildProductsList(
-      BuildContext context, List<CoffeeShop> CoffeeShopsList) {
-    final size = MediaQuery.of(context).size;
-    List<Product> allProducts =
-        CoffeeShopsList.expand((machine) => machine.products).toList();
-
-    return ListView.builder(
-      itemCount: allProducts.length,
-      itemBuilder: (context, index) {
-        final product = allProducts[index];
-        final machine = CoffeeShopsList
-            .firstWhere((machine) => machine.products.contains(product));
-        // final machineType =
-        //     machine.machineTypes.first.toString().split('.').last;
-
-        return GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => MachineDetailsScreen(CoffeeShop: machine),
-            //   ),
-            // );
-          },
-          child: Card(
-            color: Colors.white.withOpacity(0.15),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        product.name,
-                        style: HomeScreenTextStyle.name,
-                      ),
-                      SizedBox(width: size.width * 0.03),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: AppColors.greenColor.withOpacity(0.25),
-                        ),
-                        child: Text(
-                         ' machineType,                          style: HomeScreenTextStyle.type,'
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: size.width * 0.03),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.orange.withOpacity(0.15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Needs to be restocked  ${product.consumptionPeriod.toString().split('.').last}',
-                        style: HomeScreenTextStyle.restock,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.width * 0.02),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white.withOpacity(0.15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        machine.name,
-                        style: HomeScreenTextStyle.location,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

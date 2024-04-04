@@ -1,3 +1,4 @@
+import 'package:coffee_biz/consts/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingTextStyle {
@@ -7,10 +8,10 @@ class OnboardingTextStyle {
     color: Colors.white,
     fontWeight: FontWeight.w600,
   );
-  static TextStyle description = TextStyle(
+  static TextStyle description = const TextStyle(
       fontFamily: 'Roboto',
       fontSize: 16.0,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: Colors.white);
   static const TextStyle title = TextStyle(
     fontFamily: 'Roboto',
@@ -28,6 +29,6 @@ class OnboardingTextStyle {
     fontFamily: 'Roboto',
     fontSize: 17.0,
     fontWeight: FontWeight.w500,
-    color: Colors.white,
+    color: AppColors.darkGreyColor,
   );
 }

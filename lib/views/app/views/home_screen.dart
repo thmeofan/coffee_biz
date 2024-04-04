@@ -1,10 +1,10 @@
-import 'package:coffee_biz/views/coffee_shop_screen/views/coffee_shop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../consts/app_colors.dart';
 
 import '../../../data/model/news_model.dart';
+import '../../coffee_shop_screen/views/coffee_shop_screen.dart';
 import '../../news/views/news_screen.dart';
 import '../../settings/views/settings_screen.dart';
 import '../../statistics_screen/views/statistics_screen.dart';
@@ -36,44 +36,40 @@ class _HomeScreenState extends State<HomeScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/stock.svg',
-              // width: size.height * 0.025,
-              height: size.height * 0.032,
+              'assets/icons/coffee_shop.svg',
+              height: size.height * 0.045,
               color: currentIndex == 0
-                  ? AppColors.peachColor
-                  : AppColors.peachColor,
+                  ? AppColors.darkGreyColor
+                  : AppColors.darkGreyColor.withOpacity(0.5),
             ),
             label: 'Finance',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/portfolio.svg',
-              //  width: size.height * 0.025,
-              height: size.height * 0.032,
+              'assets/icons/statistics.svg',
+              height: size.height * 0.045,
               color: currentIndex == 1
-                  ? AppColors.brownColor
-                  : AppColors.lightBrownColor,
+                  ? AppColors.darkGreyColor
+                  : AppColors.darkGreyColor.withOpacity(0.5),
             ),
             label: 'News',
           ),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/news.svg',
-                // width: size.height * 0.025,
-                height: size.height * 0.032,
+                height: size.height * 0.045,
                 color: currentIndex == 2
-                    ? AppColors.brownColor
-                    : AppColors.peachColor,
+                    ? AppColors.darkGreyColor
+                    : AppColors.darkGreyColor.withOpacity(0.5),
               ),
               label: 'Currency'),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/settings.svg',
-                //  width: size.height * 0.025,
-                height: size.height * 0.032,
+                height: size.height * 0.045,
                 color: currentIndex == 3
-                    ? AppColors.lightBrownColor
-                    : AppColors.redColor,
+                    ? AppColors.darkGreyColor
+                    : AppColors.darkGreyColor.withOpacity(0.5),
               ),
               label: 'Currency'),
         ],
@@ -83,9 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.lightBrownColor,
         unselectedItemColor: Colors.white,
-        selectedItemColor: AppColors.peachColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),

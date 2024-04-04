@@ -5,7 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'blocs/vending_machine_cubit/vending_machine_cubit.dart';
+import 'blocs/coffee_shop_cubit/coffee_shop_cubit.dart';
+
 import 'consts/app_colors.dart';
 import 'data/repository/onboarding_repository.dart';
 import 'firebase_options.dart';

@@ -1,3 +1,4 @@
+import 'package:coffee_biz/consts/app_text_styles/settings_text_style.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,12 +16,11 @@ class ArticleScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        //  backgroundColor: AppColors.blackColor,
         elevation: 0,
         titleSpacing: -5,
         title: const Text(
           'Back',
-          //   style: SynopsisTextStyle.back,
+          style: SettingsTextStyle.back,
         ),
         leading: IconButton(
           onPressed: () {
@@ -53,6 +53,30 @@ class ArticleScreen extends StatelessWidget {
               height: screenSize.height * 0.01,
             ),
             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: AppColors.yellowColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Business news',
+                        style: NewsTextStyle.business,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: screenSize.width * 0.025,
                   vertical: screenSize.width * 0.01),
@@ -64,7 +88,6 @@ class ArticleScreen extends StatelessWidget {
             ),
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(screenSize.width * 0.025),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),

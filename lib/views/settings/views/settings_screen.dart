@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../consts/app_colors.dart';
+
+import '../../../consts/app_text_styles/settings_text_style.dart';
 import '../../app/views/my_in_app_web_view.dart';
 import '../widgets/ios_toggle.dart';
 import '../widgets/settings_widget.dart';
@@ -28,119 +29,76 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Size size = MediaQuery.of(context).size;
     bool isSwitched = false;
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        //   backgroundColor: AppColors.blackColor,
-        title: const Text(
-          'back',
-          //  style: SynopsisTextStyle.back,
-        ),
-        titleSpacing: -5,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: SvgPicture.asset('assets/icons/arrow.svg'),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
-        //  color: AppColors.blackColor,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                height: size.height * 0.12,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    // color: AppColors.darkGreyColor,
+              Column(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size.height * 0.018),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Settings',
+                          style: SettingsTextStyle.title,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      SettingsTile(
-                        assetName: 'assets/icons/currency_bold.svg',
-                        text: 'Currency',
-                        action: Row(
-                          children: [
-                            Text('USD'),
-                            SvgPicture.asset('assets/icons/arrow_forward.svg')
-                          ],
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  SettingsTile(
+                    assetName: 'assets/icons/share.svg',
+                    text: 'Share with friends',
+                    action: Row(
+                      children: [SvgPicture.asset('assets/icons/arrow.svg')],
+                    ),
+                  ),
+                  SettingsTile(
+                    assetName: 'assets/icons/terms.svg',
+                    text: 'Terms of use',
+                    action: SvgPicture.asset('assets/icons/arrow.svg'),
+                  ),
+                  SettingsTile(
+                    assetName: 'assets/icons/privacy.svg',
+                    text: 'Privacy Policy',
+                    action: SvgPicture.asset('assets/icons/arrow.svg'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const MyScreenForVIew(url: 'https://google.com/'),
                         ),
-                      ),
-                      SettingsTile(
-                        assetName: 'assets/icons/check.svg',
-                        text: 'Safety',
-                        action:
-                            SvgPicture.asset('assets/icons/arrow_forward.svg'),
-                      ),
-                      SettingsTile(
-                        assetName: 'assets/icons/bell.svg',
-                        text: 'Notification',
-                        action: IOSStyleToggle(
-                          value: isSwitched,
-                          onChanged: (value) {
-                            setState(() {
-                              isSwitched = value;
-                            });
-                          },
-                        ),
-                      )
-                    ],
-                  )),
+                      );
+                    },
+                  ),
+                  SettingsTile(
+                    assetName: 'assets/icons/notification.svg',
+                    text: 'Notification',
+                    action: IOSStyleToggle(
+                      value: isSwitched,
+                      onChanged: (value) {
+                        setState(() {
+                          isSwitched = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: size.height * 0.03,
               ),
-              Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    //  color: AppColors.darkGreyColor,
-                  ),
-                  child: Column(
-                    children: [
-                      SettingsTile(
-                        assetName: 'assets/icons/star.svg',
-                        text: 'Currency',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyScreenForVIew(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
-                      ),
-                      SettingsTile(
-                        assetName: 'assets/icons/letter.svg',
-                        text: 'Safety',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyScreenForVIew(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
-                      ),
-                      SettingsTile(
-                        assetName: 'assets/icons/doc.svg',
-                        text: 'Privacy Policy',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyScreenForVIew(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  )),
             ],
           ),
         ),

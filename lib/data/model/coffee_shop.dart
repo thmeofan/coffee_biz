@@ -38,6 +38,21 @@ class CoffeeShop {
           .toList(),
     );
   }
+  double calculateIncome() {
+    double totalIncome = 0.0;
+    for (Product product in products) {
+      totalIncome += product.price;
+    }
+    return totalIncome;
+  }
+
+  static double calculateTotalIncome(List<CoffeeShop> coffeeShops) {
+    double totalIncome = 0.0;
+    for (CoffeeShop shop in coffeeShops) {
+      totalIncome += shop.calculateIncome();
+    }
+    return totalIncome;
+  }
 }
 
 class Product {

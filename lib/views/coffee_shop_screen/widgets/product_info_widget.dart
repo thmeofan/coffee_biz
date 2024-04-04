@@ -3,9 +3,6 @@ import '../../../consts/app_colors.dart';
 import '../../../consts/app_text_styles/constructor_text_style.dart';
 import '../../../consts/app_text_styles/home_screen_text_style.dart';
 import '../../../data/model/coffee_shop.dart';
-import '../../../data/model/coffee_shop.dart';
-import '../../../data/model/coffee_shop.dart';
-import '../../app/widgets/output_widget.dart'; // Import your models here
 
 class ProductInfoWidget extends StatelessWidget {
   final Product product;
@@ -68,7 +65,6 @@ class ProductInfoWidget extends StatelessWidget {
                     Spacer(),
                     Text(
                       product.price.toString(),
-                      //     style: HomeScreenTextStyle.type,
                     )
                   ],
                 ),
@@ -77,7 +73,6 @@ class ProductInfoWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                //  width: double.infinity,
                 height: size.height * 0.13,
                 width: size.width * 0.38,
                 decoration: BoxDecoration(
@@ -90,14 +85,14 @@ class ProductInfoWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Restock:',
+                        'goods:',
                         style: ConstructorTextStyle.inputText,
                       ),
                       SizedBox(
                         height: size.height * 0.045,
                       ),
                       Text('${_calculateRenewDate()}',
-                          style: HomeScreenTextStyle.restock)
+                          style: HomeScreenTextStyle.goods)
                     ],
                   ),
                 ),
@@ -110,7 +105,6 @@ class ProductInfoWidget extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   color: Colors.white.withOpacity(0.15),
                 ),
-                //  width: double.infinity,
                 height: size.height * 0.13,
                 width: size.width * 0.38,
                 child: Padding(
@@ -127,7 +121,7 @@ class ProductInfoWidget extends StatelessWidget {
                       ),
                       Text(
                         ' ${product.consumption}/week',
-                        style: HomeScreenTextStyle.restock,
+                        style: HomeScreenTextStyle.goods,
                       )
                     ],
                   ),
